@@ -1,0 +1,22 @@
+version: '3'
+services:
+  web:
+    #build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports: 
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app
+  #this tests container responsible for running test
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    #overide a command inside docker file
+    command: ["npm", "run", "test"]
