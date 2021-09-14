@@ -1,0 +1,17 @@
+#tell travis that super use permission is needed
+sudo: required
+#tell travis that we need docker image being installed. 
+#travis will auto install a copy of docker to running container
+services:
+  - docker
+
+#steps before test run
+before_install:
+#-t <tag_name>: create tag instead of using container id that we don't know.
+#this tag will be only used for this process
+  - docker build -t docker-react -f Dockerfile.dev .
+
+#set of commands to run test
+script:
+
+  - docker run -e CI=true docker-react npm run test 
